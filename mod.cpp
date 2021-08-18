@@ -1,0 +1,12 @@
+name 				= "NIC Impact display";
+picture 			= "logo.paa";
+description 		= "Impact display";
+logo 				= "logo.paa";
+logoOver 			= "logo.paa";
+tooltip				= "Displays impact pos";
+tooltipOwned		= "Impact display";
+overview			= "Displays impact pos";
+author 				= "NIC";
+overviewPicture		= "logo.paa";
+overviewText 		= "Impact display";
+overviewFootnote 	= "";
