@@ -15,7 +15,7 @@
 		None
 */
 
-NIC_IMP_DSP_MONITORED_VEHICLES = [																					// infinite ammo resupply sources for heavy weapons
+NIC_IMP_DSP_MONITORED_VEHICLES = [							// Vehicles monitored for fired event
 	"MBT_01_arty_base_F",
 	"MBT_01_mlrs_base_F",
 	"B_Ship_Gun_01_base_F",
@@ -43,7 +43,7 @@ NIC_IMP_DSP_AMMO_LIST = [									// Artillery ammo list in format [Magazine nam
 	["12Rnd_230mm_rockets", 150, "227 mm HE"]
 ];
 
-NIC_IMP_DSP_DIRECTIONS = [ // Escape directions in case of near mortar fire [compass heading to impact point, opposite direction]
+NIC_IMP_DSP_DIRECTIONS = [ 									// Escape directions in case of near mortar fire [compass heading to impact point, opposite direction]
 	[337, "South"],
 	[293, "South West"],
 	[248, "West"],
@@ -54,7 +54,7 @@ NIC_IMP_DSP_DIRECTIONS = [ // Escape directions in case of near mortar fire [com
 	[23, "South East"]
 ];
 
-NIC_IMP_DSP_ICON_ENABLED_VEHICLES = [	// List of vehicles imact icons are visible from to player, when in gunner position																			// infinite ammo resupply sources for heavy weapons
+NIC_IMP_DSP_ICON_ENABLED_VEHICLES = [						// Vehicles imact icons are visible from to player, when in gunner position	
 	"B_UAV_05_F_Enhanced",
 	"NIC_UGV_01_Enhanced"
 ];
