@@ -85,7 +85,6 @@ private _eventHandlerId = addMissionEventHandler ["draw3D", {
 	} forEach NIC_Arty_ImpactData;
 }];
 // cameraEffectEnableHUD true;											// Enable / disable showing of in-game UI during currently active camera effect
-// cameraEffectEnableHUD false;											// Enable / disable showing of in-game UI during currently active camera effect
 
 private _index = count NIC_Arty_ImpactData - 1;
 (NIC_Arty_ImpactData #_index) pushBack _eventHandlerId;
@@ -106,7 +105,7 @@ private _index = count NIC_Arty_ImpactData - 1;
 					// diag_log formatText ["%1%2%3%4%5%6%7%8%9%10%11", time, "s  (NIC_IMP_DSP_fnc_GetImpactData) corrected _newImpactPosition: ", _newImpactPosition];
 				};
 				_x set [0, _newImpactPosition];
-			} else {sleep 0.1};
+			} else {sleep NIC_IMP_DSP_wait};
 		} forEach NIC_Arty_ImpactData;
 	};
 };

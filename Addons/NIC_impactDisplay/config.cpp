@@ -1,16 +1,16 @@
 class CfgPatches {
 	class NIC_IMP_DSP {
 		units[]				= {};
-		weapons[]= {};
+		weapons[]			= {};
 		requiredVersion		= 1;
 		requiredAddons[]	= {};
-		magazines[]= {};
+		magazines[]			= {};
 	};
 };
 class CfgFunctions {
 	class NIC_IMP_DSP {
 		class Functions {
-			file="NIC_impactDisplay\functions";
+			file = "NIC_impactDisplay\functions";
 			class ImpDspInit {
 				preInit = 1;
 			};

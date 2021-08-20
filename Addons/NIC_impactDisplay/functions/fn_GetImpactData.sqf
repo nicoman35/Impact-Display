@@ -26,6 +26,7 @@
 params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile", "_gunner"];
 
 if (isNil{(NIC_IMP_DSP_AMMO_LIST select {_x #0 == _magazine}) #0}) exitWith {};  		// Exit, if magazine projectile is fired from is not registered	in NIC_IMP_DSP_AMMO_LIST
+if (side _unit != side player) exitWith {};  											// Exit, if artillery unit is not on same side as player
 private _pedictedImpactPos = [_projectile] call NIC_IMP_DSP_fnc_CalcImpactData;
 private _impactETA = floor (_unit getArtilleryETA [_pedictedImpactPos, _magazine]);
 _pedictedImpactPos set [2, 0];

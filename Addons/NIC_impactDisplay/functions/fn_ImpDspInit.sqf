@@ -19,6 +19,8 @@ NIC_IMP_DSP_MONITORED_VEHICLES = [							// Vehicles monitored for fired event
 	"MBT_01_arty_base_F",
 	"MBT_01_mlrs_base_F",
 	"B_Ship_Gun_01_base_F",
+	"rhsusf_m109d_usarmy",
+	"RHS_M119_D",
 	"StaticMortar"
 ];
 
@@ -40,10 +42,21 @@ NIC_IMP_DSP_AMMO_LIST = [									// Artillery ammo list in format [Magazine nam
 	["magazine_ShipCannon_120mm_mine_shells_x6", 100, "120 mm AP Mines"],
 	["magazine_ShipCannon_120mm_smoke_shells_x6", 0, "120 mm Smoke"],
 	["magazine_ShipCannon_120mm_AT_mine_shells_x6", 100, "120 mm AT Mines"],
-	["12Rnd_230mm_rockets", 150, "227 mm HE"]
+	["12Rnd_230mm_rockets", 150, "227 mm HE"],
+	["12Rnd_230mm_rockets_cluster", 150, "227 mm HE"],
+	["rhs_mag_155mm_m795_28", 150, "155 mm HE"],
+	["rhs_mag_155mm_m825a1_2", 0, "155 mm Smoke"],
+	["rhs_mag_155mm_485_2", 0, "155 mm Flare"],
+	["rhs_mag_155mm_m712_2", 50, "155 mm Laser Guided"],
+	["rhs_mag_155mm_m731_1", 120, "155 mm AT Mines"],
+	["rhs_mag_155mm_raams_1", 120, "155 mm AP Mines"],
+	["rhs_mag_155mm_m864_3", 150, "155 mm Cluster"],
+	["RHS_mag_m1_he_12", 100, "105 mm HE"],
+	["rhs_mag_m314_ilum_4", 0, "105 mm Flare"],
+	["rhs_mag_m60a2_smoke_4", 0, "105 mm Smoke"]
 ];
 
-NIC_IMP_DSP_DIRECTIONS = [ 									// Escape directions in case of near mortar fire [compass heading to impact point, opposite direction]
+NIC_IMP_DSP_DIRECTIONS = [ 									// Escape directions in case of icomming shells near player; only friendly units [compass heading to impact point, opposite direction]
 	[337, "South"],
 	[293, "South West"],
 	[248, "West"],
@@ -58,6 +71,8 @@ NIC_IMP_DSP_ICON_ENABLED_VEHICLES = [						// Vehicles imact icons are visible f
 	"B_UAV_05_F_Enhanced",
 	"NIC_UGV_01_Enhanced"
 ];
+
+NIC_IMP_DSP_wait = 0.1;										// Wait period for trajectory calculation
 
 {
 	[_x, "fired", {_this spawn NIC_IMP_DSP_fnc_GetImpactData}, true] call CBA_fnc_addClassEventHandler;
