@@ -73,7 +73,8 @@ private _eventHandlerId = addMissionEventHandler ["draw3D", {
 			1, 															// icon width
 			1, 															// icon height 
 			0, 															// icon rotation angle
-			format["%1 %2 s", _ammoType, _impactETA],					// text
+			// format["%1 %2 s", _ammoType, _impactETA],					// text
+			format["%1 %2 km %3 s", _ammoType, (round(_ImpactPosition distance vehicle player) / 1000) toFixed 2, _impactETA],					// text
 			0,															// shadow (0 = none)
 			0.03,														// text size 
 			"RobotoCondensed",											// text font 
