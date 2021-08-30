@@ -55,7 +55,7 @@ if (!isNil{_ammoData}) then {
 
 // diag_log formatText ["%1%2%3%4%5%6%7%8%9", time, "s  (NIC_IMP_DSP_fnc_ProjectileMonitor) _ammoData: ", _ammoData];
 NIC_Arty_ImpactData pushBack [_impactPosition, _ammoName, _impactETA, _projectile, _impactPosition];
-if ((count NIC_Arty_ImpactData) > 1) exitWith {};
+if ((count NIC_Arty_ImpactData) > 1) exitWith {};						// leave here, if we already monitor something
 // diag_log formatText ["%1%2%3%4%5%6%7%8%9", time, "s  (NIC_IMP_DSP_fnc_ProjectileMonitor) NIC_Arty_ImpactData: ", NIC_Arty_ImpactData];
 
 private _eventHandlerId = addMissionEventHandler ["draw3D", {
@@ -95,10 +95,11 @@ private _index = count NIC_Arty_ImpactData - 1;
 	while {count NIC_Arty_ImpactData > 0} do {
 		{
 			_projectile = _x #3;
-			if (!isNull _projectile && _x #2 < 5) then {
+			// if (!isNull _projectile && _x #2 < 5) then {
 				_oldImpactPosition = _x #0;
 				_newImpactPosition = [_projectile] call NIC_IMP_DSP_fnc_CalcImpactData;
 				// diag_log formatText ["%1%2%3%4%5%6%7%8%9%10%11", time, "s  (NIC_IMP_DSP_fnc_GetImpactData) _oldImpactPosition: ", _oldImpactPosition, ", _newImpactPosition: ", _newImpactPosition, ", distance: ", _oldImpactPosition distance _newImpactPosition];
+				diag_log formatText ["%1%2%3%4%5%6%7%8%9%10%11", time, "s  (NIC_IMP_DSP_fnc_GetImpactData) speed: ", speed _projectile, ", velocity: ",velocity _projectile];
 				if (count _newImpactPosition == 0) exitWith {};
 				if (_oldImpactPosition distance _newImpactPosition > 5) then {
 					_heading = _oldImpactPosition getDir _newImpactPosition;
@@ -106,7 +107,7 @@ private _index = count NIC_Arty_ImpactData - 1;
 					// diag_log formatText ["%1%2%3%4%5%6%7%8%9%10%11", time, "s  (NIC_IMP_DSP_fnc_GetImpactData) corrected _newImpactPosition: ", _newImpactPosition];
 				};
 				_x set [0, _newImpactPosition];
-			} else {sleep NIC_IMP_DSP_wait};
+			// } else {sleep NIC_IMP_DSP_wait};
 		} forEach NIC_Arty_ImpactData;
 	};
 };
