@@ -2,7 +2,7 @@
 	Author: 		Nicoman
 	Function: 		NIC_IMP_DSP_fnc_ProjectileMonitor
 	Version: 		1.0
-	Edited Date: 	18.08.2021
+	Edited Date: 	31.08.2021
 	
 	Description:
 		1. Monitor projectiles fired from artillery units, display impact positions as icons, if player
@@ -59,7 +59,7 @@ if ((count NIC_Arty_ImpactData) > 1) exitWith {};						// leave here, if we alre
 // diag_log formatText ["%1%2%3%4%5%6%7%8%9", time, "s  (NIC_IMP_DSP_fnc_ProjectileMonitor) NIC_Arty_ImpactData: ", NIC_Arty_ImpactData];
 
 private _eventHandlerId = addMissionEventHandler ["draw3D", {
-	_opacity = 0;
+	_opacity = 1;
 	if ([player, getConnectedUAV player] call NIC_IMP_DSP_fnc_CheckIconVisible) then {_opacity = 1};
 	{
 		_ImpactPosition = _x #0;
@@ -67,17 +67,18 @@ private _eventHandlerId = addMissionEventHandler ["draw3D", {
 		_ammoType = _x #1;
 		_impactETA = _x #2;
 		drawIcon3D [
-			"\a3\3den\data\cfgwaypoints\destroy_ca.paa", 				// icon image
+			// "\a3\3den\data\cfgwaypoints\destroy_ca.paa", 				// icon image
+			"\a3\ui_f\data\map\markerbrushes\cross_ca.paa", 			// icon image
 			[1, 1, 1, _opacity], 										// icon color  [R, G, B, Opacity]
 			_ImpactPosition, 											// icon position			
 			1, 															// icon width
 			1, 															// icon height 
 			0, 															// icon rotation angle
-			// format["%1 %2 s", _ammoType, _impactETA],					// text
-			format["%1 %2 km %3 s", _ammoType, (round(_ImpactPosition distance getConnectedUAV player) / 1000) toFixed 2, _impactETA],					// text
+			// format["%1 %2 km %3 s", _ammoType, (round(_ImpactPosition distance getConnectedUAV player) / 1000) toFixed 2, _impactETA],					// text
+			format["%1 %2 km %3 s", _ammoType, (round(_ImpactPosition distance vehicle player) / 1000) toFixed 2, _impactETA],					// text
 			0,															// shadow (0 = none)
 			0.03,														// text size 
-			"RobotoCondensed",											// text font 
+			"PuristaLight",												// text font 
 			"right", 													// text alignment ("left", "center", "right")
 			false,														// draw arrows and the text label at edge of screen when icon moves off screen
 			0.005 * _k,													// offsetX
@@ -85,29 +86,30 @@ private _eventHandlerId = addMissionEventHandler ["draw3D", {
 		];
 	} forEach NIC_Arty_ImpactData;
 }];
-// cameraEffectEnableHUD true;											// Enable / disable showing of in-game UI during currently active camera effect
 
 private _index = count NIC_Arty_ImpactData - 1;
 (NIC_Arty_ImpactData #_index) pushBack _eventHandlerId;
 
 [] spawn {
-	private ["_projectile", "_newImpactPosition", "_oldImpactPosition", "_heading"];
+	private ["_projectile", "_newImpactPosition", "_oldImpactPosition", "_heading", "_impactData"];
 	while {count NIC_Arty_ImpactData > 0} do {
 		{
 			_projectile = _x #3;
-			// if (!isNull _projectile && _x #2 < 5) then {
+			if (!isNull _projectile && _x #2 < 5) then {
 				_oldImpactPosition = _x #0;
-				_newImpactPosition = [_projectile] call NIC_IMP_DSP_fnc_CalcImpactData;
-				// diag_log formatText ["%1%2%3%4%5%6%7%8%9%10%11", time, "s  (NIC_IMP_DSP_fnc_GetImpactData) _oldImpactPosition: ", _oldImpactPosition, ", _newImpactPosition: ", _newImpactPosition, ", distance: ", _oldImpactPosition distance _newImpactPosition];
-				diag_log formatText ["%1%2%3%4%5%6%7%8%9%10%11", time, "s  (NIC_IMP_DSP_fnc_GetImpactData) speed: ", speed _projectile, ", velocity: ",velocity _projectile];
-				if (count _newImpactPosition == 0) exitWith {};
+				_impactData = [_projectile] call NIC_IMP_DSP_fnc_CalcImpactData;
+				if (count _impactData == 0) exitWith {};
+				_newImpactPosition = _impactData #0;
+				// diag_log formatText ["%1%2%3%4%5%6%7%8%9%10%11", time, "s  (NIC_IMP_DSP_fnc_ProjectileMonitor) _oldImpactPosition: ", _oldImpactPosition, ", _newImpactPosition: ", _newImpactPosition, ", distance: ", _oldImpactPosition distance _newImpactPosition];
+				// diag_log formatText ["%1%2%3%4%5%6%7%8%9%10%11", time, "s  (NIC_IMP_DSP_fnc_ProjectileMonitor) speed: ", speed _projectile, ", velocity: ",velocity _projectile];
+				// if (count _newImpactPosition == 0) exitWith {};
 				if (_oldImpactPosition distance _newImpactPosition > 5) then {
 					_heading = _oldImpactPosition getDir _newImpactPosition;
 					_newImpactPosition = _oldImpactPosition getPos [5, _heading];
-					// diag_log formatText ["%1%2%3%4%5%6%7%8%9%10%11", time, "s  (NIC_IMP_DSP_fnc_GetImpactData) corrected _newImpactPosition: ", _newImpactPosition];
+					// diag_log formatText ["%1%2%3%4%5%6%7%8%9%10%11", time, "s  (NIC_IMP_DSP_fnc_ProjectileMonitor) corrected _newImpactPosition: ", _newImpactPosition];
 				};
 				_x set [0, _newImpactPosition];
-			// } else {sleep NIC_IMP_DSP_wait};
+			} else {sleep NIC_IMP_DSP_wait};
 		} forEach NIC_Arty_ImpactData;
 	};
 };
@@ -120,8 +122,7 @@ while {(count NIC_Arty_ImpactData) > 0} do {
 		_x set [2, _impactETA];
 		if (_impactETA < 1) then {NIC_Arty_ImpactData deleteAt _foreachindex};
 	} forEach NIC_Arty_ImpactData;
-	// diag_log formatText ["%1%2%3%4%5%6%7%8%9", time, "s  (NIC_IMP_DSP_fnc_ProjectileMonitor_dbg) NIC_Arty_ImpactData: ", NIC_Arty_ImpactData];
+	// diag_log formatText ["%1%2%3%4%5%6%7%8%9", time, "s  (NIC_IMP_DSP_fnc_ProjectileMonitor) NIC_Arty_ImpactData: ", NIC_Arty_ImpactData];
 	sleep 1;
 };
-removeMissionEventHandler ["draw3D", _eventHandlerId];
 // };

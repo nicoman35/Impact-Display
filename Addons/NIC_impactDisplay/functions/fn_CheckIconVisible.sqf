@@ -2,7 +2,7 @@
 	Author: 		Nicoman
 	Function: 		NIC_IMP_DSP_fnc_CheckIconVisible
 	Version: 		1.0
-	Edited Date: 	18.08.2021
+	Edited Date: 	31.08.2021
 	
 	Description:
 		Check, if player is connected to a UAV listed in NIC_IMP_DSP_ICON_ENABLED_VEHICLES and if player

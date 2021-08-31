@@ -2,7 +2,7 @@
 	Author: 		Nicoman
 	Function: 		NIC_IMP_DSP_fnc_ImpDspInit
 	Version: 		1.0
-	Edited Date: 	18.08.2021
+	Edited Date: 	31.08.2021
 	
 	Description:
 		Iniciate rearm heavy weapons mod. Setup variables, add fired event handler to units listed in 
@@ -75,6 +75,7 @@ NIC_IMP_DSP_ICON_ENABLED_VEHICLES = [						// Vehicles imact icons are visible f
 NIC_IMP_DSP_wait = 0.1;										// Wait period for trajectory calculation
 
 {
+	// [_x, "fired", {_this spawn NIC_IMP_DSP_fnc_GetImpactData}, true] call CBA_fnc_addClassEventHandler;
 	[_x, "fired", {_this spawn NIC_IMP_DSP_fnc_GetImpactData}, true] call CBA_fnc_addClassEventHandler;
 } forEach NIC_IMP_DSP_MONITORED_VEHICLES;
 			
