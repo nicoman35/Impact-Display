@@ -59,7 +59,7 @@ if ((count NIC_Arty_ImpactData) > 1) exitWith {};						// leave here, if we alre
 // diag_log formatText ["%1%2%3%4%5%6%7%8%9", time, "s  (NIC_IMP_DSP_fnc_ProjectileMonitor) NIC_Arty_ImpactData: ", NIC_Arty_ImpactData];
 
 private _eventHandlerId = addMissionEventHandler ["draw3D", {
-	_opacity = 1;
+	_opacity = 0;
 	if ([player, getConnectedUAV player] call NIC_IMP_DSP_fnc_CheckIconVisible) then {_opacity = 1};
 	{
 		_ImpactPosition = _x #0;
@@ -74,8 +74,8 @@ private _eventHandlerId = addMissionEventHandler ["draw3D", {
 			1, 															// icon width
 			1, 															// icon height 
 			0, 															// icon rotation angle
-			// format["%1 %2 km %3 s", _ammoType, (round(_ImpactPosition distance getConnectedUAV player) / 1000) toFixed 2, _impactETA],					// text
-			format["%1 %2 km %3 s", _ammoType, (round(_ImpactPosition distance vehicle player) / 1000) toFixed 2, _impactETA],					// text
+			format["%1 %2 km %3 s", _ammoType, (round(_ImpactPosition distance getConnectedUAV player) / 1000) toFixed 2, _impactETA],					// text
+			// format["%1 %2 km %3 s", _ammoType, (round(_ImpactPosition distance vehicle player) / 1000) toFixed 2, _impactETA],					// text
 			0,															// shadow (0 = none)
 			0.03,														// text size 
 			"PuristaLight",												// text font 
@@ -102,7 +102,6 @@ private _index = count NIC_Arty_ImpactData - 1;
 				_newImpactPosition = _impactData #0;
 				// diag_log formatText ["%1%2%3%4%5%6%7%8%9%10%11", time, "s  (NIC_IMP_DSP_fnc_ProjectileMonitor) _oldImpactPosition: ", _oldImpactPosition, ", _newImpactPosition: ", _newImpactPosition, ", distance: ", _oldImpactPosition distance _newImpactPosition];
 				// diag_log formatText ["%1%2%3%4%5%6%7%8%9%10%11", time, "s  (NIC_IMP_DSP_fnc_ProjectileMonitor) speed: ", speed _projectile, ", velocity: ",velocity _projectile];
-				// if (count _newImpactPosition == 0) exitWith {};
 				if (_oldImpactPosition distance _newImpactPosition > 5) then {
 					_heading = _oldImpactPosition getDir _newImpactPosition;
 					_newImpactPosition = _oldImpactPosition getPos [5, _heading];
