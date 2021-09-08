@@ -15,7 +15,6 @@
 		Array [_pedictedImpactPos: Array - Position array [x, y, z], _eta]
 */
 
-// NIC_IMP_DSP_fnc_CalcImpactData_dbg = {
 params [["_projectile", [objNull]], ["_eta", false]];
 if (isNull _projectile) exitWith {[]};
 
@@ -23,7 +22,6 @@ private _projectilePositionT0 = getPosWorld _projectile;								// position of p
 private _Vzero = (speed _projectile) / 3.6;												// calculate speed of projectile from km/h to m/s the moment is is fired
 // private _Vzero = velocityModelSpace _projectile #1;
 
-// diag_log formatText ["%1%2%3%4%5%6%7%8%9", time, "s  (NIC_IMP_DSP_fnc_CalcImpactData) _projectile: ", _projectile, ", _projectilePositionT0: ", _projectilePositionT0, ", _Vzero: ", _Vzero, " m/s"];
 sleep NIC_IMP_DSP_wait;																	// wait short period for the round to move along it's trajectory
 if (isNull _projectile || !alive _projectile) exitWith {[]};							// leave, if round no longer exists
 private _projectilePosition2 = getPosWorld _projectile;									// position of projectile after waiting period
@@ -31,8 +29,6 @@ private _distance2D	= _projectilePositionT0 distance2D _projectilePosition2;			/
 private _heightDiff	= _projectilePosition2 #2 - _projectilePositionT0 #2;				// calculate height (y axis value) between the two positions; only working if round travels up!
 private _elevAnkle	= atan (_heightDiff / _distance2D);									// calculate elevation angle of initial projectile flight trajectory
 private _heading 	= _projectilePositionT0 getDir _projectilePosition2;				// calculate heading of projectile flight trajectory
-// diag_log formatText ["%1%2%3%4%5%6%7%8%9%10%11", time, "s  (NIC_IMP_DSP_fnc_CalcImpactData) _projectilePosition2: ", _projectilePosition2, ", _distance2D: ", _distance2D, ", _heightDiff: ", _heightDiff, ", _elevAnkle: ", _elevAnkle, ", _heading: ", _heading];
-// diag_log formatText ["%1%2%3%4%5%6%7%8%9%10%11", time, "s  (NIC_IMP_DSP_fnc_CalcImpactData) tan _elevAnkle: ", tan _elevAnkle, ", cos _elevAnkle: ", cos _elevAnkle];
 private _heightImpactPosition = 0;														// we assume the height at impact position will be at zero m above sea level
 private _g = 9.81;																		// gravitational constant in m/s^2
 private _i = 0;
@@ -50,12 +46,8 @@ _pedictedImpactPos set [2, 0];															// set impact height to zero above 
 
 if (_eta) then {
 	private _Vy = _Vzero * sin _elevAnkle;
-	// diag_log formatText ["%1%2%3%4%5%6%7%8%9%10%11", time, "s  (NIC_IMP_DSP_fnc_CalcImpactData) _Vzero: ", _Vzero, ", _elevAnkle: ", _elevAnkle, ", _Vy: ", _Vy];
 	_eta = floor ((_Vy + sqrt(_Vy^2 + 2 * _g * _heightDiff)) / _g);						// calculate time of flight. Formula: Vy = V0 * sin(α); t = [Vy + √(Vy² + 2 * g * h)] / g. Source: https://www.omnicalculator.com/physics/trajectory-projectile-motion#trajectory-formula
 	// private _hmax = _heightDiff + _Vy^2 / (2 * _g); // hmax = h + Vy² / (2 * g)
 };
 
 [_pedictedImpactPos, _eta]
-// };
-
-

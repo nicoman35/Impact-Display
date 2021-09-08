@@ -1,108 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Project name="NIC_ImpactDisplay">
     <Package name="NIC_IMP_D">
-		
-		
-		
-		<!-- <Key ID="STR_NIC_HW_MOD_NAME"> -->
-            <!-- <Original>Rearm Heavy Weapons v1.3</Original> -->
-            <!-- <German>Schwere Waffen Wiederbewaffnen v1.3</German> -->
-        <!-- </Key> -->
-		<!-- <Key ID="STR_NIC_HW_MOD_OVERVIEW"> -->
-            <!-- <Original>Rearm Heavy Weapons v1.3 &lt;br /&gt;Rearm heavy weapons, if ammo sources are to be found within a given radius around the weapon.</Original> -->
-            <!-- <German>Schwere Waffen Wiederbewaffnen v1.3 &lt;br /&gt;Wiederbewaffnung schwerer Waffen, falls sich Munitionsquellen in einem vorgegebenen Radius um die Waffe befinden.</German> -->
-        <!-- </Key> -->
-		<!-- <Key ID="STR_NIC_HW_TITLE"> -->
-            <!-- <Original>Rearm Heavy Weapons</Original> -->
-            <!-- <German>Schwere Waffen Wiederbewaffnen</German> -->
-        <!-- </Key> -->
-		<!-- <Key ID="STR_NIC_HW_REARM_VEH"> -->
-            <!-- <Original>Rearm Vehicle</Original> -->
-            <!-- <German>Fahrzeug Wiederbewaffnen</German> -->
-        <!-- </Key> -->
-		<!-- <Key ID="STR_NIC_HW_NO_AMMO_NEEDED"> -->
-            <!-- <Original>Fully armed, no ammo needed.</Original> -->
-            <!-- <German>Voll bestückt, keine Munition notwendig.</German> -->
-        <!-- </Key> -->
-		<!-- <Key ID="STR_NIC_HW_NO_AMMO_CRATES"> -->
-            <!-- <Original>No ammo sources found nearby.</Original> -->
-            <!-- <German>Keine Munitionsquellen in der Nähe gefunden.</German> -->
-        <!-- </Key> -->
-		<!-- <Key ID="STR_NIC_HW_REARMING"> -->
-            <!-- <Original>Rearming...</Original> -->
-            <!-- <German>Bewaffne neu...</German> -->
-        <!-- </Key> -->
-		<!-- <Key ID="STR_NIC_HW_REARMED"> -->
-            <!-- <Original>Rearming complete.</Original> -->
-            <!-- <German>Wiederbewaffnung abgeschlossen.</German> -->
-        <!-- </Key> -->
-		<!-- <Key ID="STR_NIC_HW_MORTAR_PAR_REARMED"> -->
-            <!-- <Original>Rearming partially complete.</Original> -->
-            <!-- <German>Wiederbewaffnung teilweise abgeschlossen.</German> -->
-        <!-- </Key> -->
-		<!-- <Key ID="STR_NIC_HW_NO_SUITABLE_AMMO"> -->
-            <!-- <Original>Found no ammo in %1.</Original> -->
-            <!-- <German>Keine Munition in %1 gefunden.</German> -->
-        <!-- </Key> -->
-		<!-- <Key ID="STR_NIC_HW_CRATE"> -->
-            <!-- <Original>crate</Original> -->
-            <!-- <German>der Kiste</German> -->
-        <!-- </Key> -->
-		<!-- <Key ID="STR_NIC_HW_CRATES"> -->
-            <!-- <Original>crates</Original> -->
-            <!-- <German>den Kisten</German> -->
-        <!-- </Key> -->
-		<!-- <Key ID="STR_NIC_HW_TITLE_TIP"> -->
-            <!-- <Original>Turn On/Off menu action entry for heavy weapons operators allowing rearming, if ammo is to be found within search range.</Original> -->
-            <!-- <German>Ein- und ausschalten des Aktionsmenüeintrages für Kanoniere zur Wiederbefaffnung schwerer Waffen, falls sich Munitionsquellen innerhalb der Suchreichweite befinden.</German> -->
-        <!-- </Key> -->
-		<!-- <Key ID="STR_NIC_HW_SEARCH_RANGE"> -->
-            <!-- <Original>Search Range</Original> -->
-            <!-- <German>Suchreichweite</German> -->
-        <!-- </Key> -->
-		<!-- <Key ID="STR_NIC_HW_SEARCH_RANGE_TIP"> -->
-            <!-- <Original>Search range around weapon in meter, whithin which ammo sources are searched for. HINT: The further away an ammo source is, the longer rearming will take.</Original> -->
-            <!-- <German>Suchreichweite in Meter um die Waffe, innerhalb dessen nach Munition gesucht wird. HINWEIS: Je weiter entfernt die Munitiosquelle, desto länger das Wiederbewaffnen.</German> -->
-        <!-- </Key> -->
-		<!-- <Key ID="STR_NIC_HW_TIME_PER"> -->
-            <!-- <Original>Time Per Magazine And Meter</Original> -->
-            <!-- <German>Zeit Pro Geschoß Und Meter</German> -->
-        <!-- </Key> -->
-		<!-- <Key ID="STR_NIC_HW_TIME_PER_TIP"> -->
-            <!-- <Original>Time in seconds needed for rearming one magazine per meter distance from ammo source to vehicle.</Original> -->
-            <!-- <German>Zeit in Sekunden pro Wiederbewaffnung eines Magazins pro Meter Entfernung von Munitionsquelle zum Mörser.</German> -->
-        <!-- </Key> -->
-		<!-- <Key ID="STR_NIC_HW_REARMING_ABORT"> -->
-            <!-- <Original>Rearming aborted</Original> -->
-            <!-- <German>Wiederbewaffnung abgebrochen</German> -->
-        <!-- </Key> -->
-		<!-- <Key ID="STR_NIC_HW_REARMING_PROGRESS"> -->
-            <!-- <Original>Rearming already in progress, patience please</Original> -->
-            <!-- <German>Wiederbewaffnung bereits im Gange, Geduld bitte</German> -->
-        <!-- </Key> -->
-		<!-- <Key ID="STR_NIC_HW_NEG_1"> -->
-            <!-- <Original>Rearming </Original> -->
-            <!-- <German>Wiederbewaffnung </German> -->
-        <!-- </Key> -->
-		<!-- <Key ID="STR_NIC_HW_NEG_2"> -->
-            <!-- <Original> not possible!</Original> -->
-            <!-- <German> nicht möglich!</German> -->
-        <!-- </Key> -->
-		<!-- <Key ID="STR_NIC_HW_NEG_3"> -->
-            <!-- <Original>No rearm team available in a range of </Original> -->
-            <!-- <German>Kein Wiederbewaffnungsteam in einer Reichweite von </German> -->
-        <!-- </Key> -->
-		<!-- <Key ID="STR_NIC_HW_NEG_4"> -->
-            <!-- <Original>No ammo sources available in a range of </Original> -->
-            <!-- <German>Kein Munitionsquellen in einer Reichweite von </German> -->
-        <!-- </Key> -->
-		<!-- <Key ID="STR_NIC_HW_AI_UNITS"> -->
-            <!-- <Original>Number Of Necessary AI Engineers</Original> -->
-            <!-- <German>Anzahl Notwendiger AI Ingenieure</German> -->
-        <!-- </Key> -->
-		<!-- <Key ID="STR_NIC_HW_AI_UNITS_TIP"> -->
-            <!-- <Original>Number of necessary AI engineers for the auto rearming. They have to be within the same range from the unit to be auto rearmed, as the 'Search Range' setting. Or be assigned as unit's crew.</Original> -->
-            <!-- <German>Anzahl der für die automatische Wiederbewaffnung notwendigen Ingenieure. Sie müssen sich innerhalb derselben Reichweite um die wiederzubewaffnende Einheit befinden, wie die 'Suchreichweiten' Einstellung. Oder Teil der Mannschaft der Einheit sein.</German> -->
-        <!-- </Key> -->
+		<Key ID="STR_NIC_IMP_DSP_MOD_NAME">
+            <Original>Artillery Monitor v1.0</Original>
+            <German>Artillerie Monitor v1.0</German>
+        </Key>
+		<Key ID="STR_NIC_IMP_DSP_MOD_OVERVIEW">
+            <Original>Artillery Monitor v1.0 &lt;br /&gt;Will display impact positions of mortar and artillery rounds as icons, when watching impact area from authorized vehicle turrets.</Original>
+            <German>Artillerie Monitor v1.0 &lt;br /&gt;Mörser und Artillerie Geschosse werden als icons dargestellt, falls das Einschlagsgebiet aus einem authorisierten Fahrzeug heraus betrachtet wird.</German>
+        </Key>
+		<Key ID="STR_NIC_IMP_DSP_TITLE">
+            <Original>Artillery Monitor</Original>
+            <German>Artillerie Monitor</German>
+        </Key>
+		<Key ID="STR_NIC_IMP_DSP_CMD">
+            <Original>Monitor Command Menu</Original>
+            <German>Beobachtung Commando Menü</German>
+        </Key>
+		<Key ID="STR_NIC_IMP_DSP_CMD_TIP">
+            <Original>The monitoring of player's command menu is necessary for having exact predictions of guided and laser guided ammo. Optional. Downside: Constant looping will reduce overall game performance.</Original>
+            <German>Das überwachen des Commando Menüs ist notwendig für exakte Vorhersagen für gelenkte und Laser gelenkte Munition. Optional. Nachteil: Die dafür notwendige constante Schleife wird sich negativ auf die Gesammtperformanz des Spieles auswirken.</German>
+        </Key>
 	</Package>
 </Project>

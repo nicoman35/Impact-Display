@@ -1,8 +1,8 @@
 /*
 	Author: 		Nicoman
 	Function: 		NIC_IMP_DSP_fnc_GetImpactData
-	Version: 		1.0
-	Edited Date: 	31.08.2021
+	Version: 		1.1
+	Edited Date: 	07.09.2021
 	
 	Description:
 		In case one of the unit types listed in the variable NIC_IMP_DSP_MONITORED_VEHICLES fires
@@ -22,17 +22,31 @@
 		None
 */
 
-// NIC_IMP_DSP_fnc_GetImpactData_dbg = {
-params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile", "_gunner"];
-
-if (isNil{(NIC_IMP_DSP_AMMO_LIST select {_x #0 == _magazine}) #0}) exitWith {};  		// exit, if magazine projectile is fired from is not registered	in NIC_IMP_DSP_AMMO_LIST
-if (side _unit != side player) exitWith {};  											// exit, if artillery unit is not on same side as player
+params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile"];
+private _ammoData = (NIC_IMP_DSP_AMMO_LIST select {_x #0 == _magazine}) #0;
+if (isNil{_ammoData}) exitWith {};  														// exit, if magazine projectile is fired from is not registered	in NIC_IMP_DSP_AMMO_LIST
 private _impactData = [_projectile, true] call NIC_IMP_DSP_fnc_CalcImpactData;
 if (count _impactData == 0) exitWith {};
-private _pedictedImpactPos = _impactData #0;
-private _impactETA = _impactData #1;													// calculated flight time of projectile
-private _impactETAcmd = floor (_unit getArtilleryETA [_pedictedImpactPos, _magazine]);	// flight time of projectile given by command; sometimes not giving right flight time?!?
-diag_log formatText ["%1%2%3%4%5%6%7%8%9%10%11", time, "s  (NIC_IMP_DSP_fnc_GetImpactData) _impactETA: ", _impactETA, ", _impactETAcmd: ", _impactETAcmd];
-_pedictedImpactPos set [2, 0];
-[_unit, _magazine, _impactETA max _impactETAcmd, _ammo, _pedictedImpactPos, _projectile] spawn NIC_IMP_DSP_fnc_ProjectileMonitor;
-// };
+private _pedictedImpactPosition = _impactData #0;											// calculated flight time of projectile
+private _impactETA = _impactData #1;
+private _impactETAcmd = floor (_unit getArtilleryETA [_pedictedImpactPosition, _magazine]);	// flight time of projectile given by command; sometimes not giving right flight time?!?
+_pedictedImpactPosition set [2, 0];
+private _special = _ammoData #3;
+private _cursorData = _unit getVariable ["NIC_IMP_DSP_cursorData", []];
+if (count _cursorData == 0) exitWith {};
+private _memorizedImpactPosition = _cursorData #0;
+private _cursorObject = _cursorData #1;
+private _initialPositionObject = _cursorData #3;
+
+if (_pedictedImpactPosition distance _memorizedImpactPosition > 300) exitWith {
+	systemChat "Missfire! De-lock target and try again!";									 // if target object is 'locked', rounds will always fly around map position [0, 0], thus the round  is lost
+}; 
+
+if (_special == 1) then {
+	_pedictedImpactPosition = _memorizedImpactPosition;
+	if !(isNull	_cursorObject) then {
+		_pedictedImpactPosition = _initialPositionObject;
+	};  
+};
+
+[_unit, _magazine, _impactETA max _impactETAcmd, _ammo, _pedictedImpactPosition, _projectile, _special, _memorizedImpactPosition, _cursorObject, _initialPositionObject] spawn NIC_IMP_DSP_fnc_ProjectileMonitor;
