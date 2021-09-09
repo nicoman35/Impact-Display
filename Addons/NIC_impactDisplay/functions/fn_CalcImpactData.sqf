@@ -37,7 +37,6 @@ while {_i < 5} do {
 	_heightDiff = _projectilePositionT0 #2 - _heightImpactPosition;
 	_range = _Vzero * cos _elevAnkle * (_Vzero * sin _elevAnkle + sqrt((_Vzero * sin _elevAnkle)^2 + 2 * _g * _heightDiff)) / _g;				// calculate range of round. Formula: R = V0 * cos(α) * [V * sin(α) + √(V0 * sin(α))² + 2 * g * h)] / g. Source: https://www.omnicalculator.com/physics/projectile-motion
 	_pedictedImpactPos = _projectilePositionT0 getPos [_range, _heading];																		// calculate predicted impact position
-	// diag_log formatText ["%1%2%3%4%5%6%7%8%9%10%11", time, "s  (NIC_IMP_DSP_fnc_CalcImpactData) _heightImpactPosition: ", _heightImpactPosition, ", _pedictedImpactPos: ", _pedictedImpactPos, ", _heightDiff: ", _heightDiff];
 	if (getTerrainHeightASL _pedictedImpactPos < 0 || abs (_heightImpactPosition - getTerrainHeightASL _pedictedImpactPos) < 10) exitWith {};	// leave, if terrain height at predicted impact position is almost the same as the height predicted impact position was calculated with
 	_heightImpactPosition = getTerrainHeightASL _pedictedImpactPos;																				// get terrain height position at calculated impact position
 	_i = _i + 1;
