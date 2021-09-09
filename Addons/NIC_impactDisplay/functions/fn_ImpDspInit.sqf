@@ -2,11 +2,10 @@
 	Author: 		Nicoman
 	Function: 		NIC_IMP_DSP_fnc_ImpDspInit
 	Version: 		1.0
-	Edited Date: 	31.08.2021
+	Edited Date: 	9.09.2021
 	
 	Description:
-		Iniciate rearm heavy weapons mod. Setup variables, add fired event handler to units listed in 
-		NIC_IMP_DSP_MONITORED_VEHICLES
+		Iniciate impact display mod. Setup variables, add fired event handler to units listed in NIC_IMP_DSP_MONITORED_VEHICLES
 	
 	Parameters:
 		None
@@ -15,7 +14,7 @@
 		None
 */
 
-NIC_IMP_DSP_MONITORED_VEHICLES = [													// Vehicles monitored for fired event
+NIC_IMP_DSP_MONITORED_VEHICLES = [																// Vehicles monitored for fired event
 	"MBT_01_arty_base_F",
 	"MBT_01_mlrs_base_F",
 	"B_Ship_Gun_01_base_F",
@@ -24,7 +23,7 @@ NIC_IMP_DSP_MONITORED_VEHICLES = [													// Vehicles monitored for fired e
 	"StaticMortar"
 ];
 
-NIC_IMP_DSP_AMMO_LIST = [															// Artillery ammo list in format [Magazine name, danger distance from impact point in m, display name]
+NIC_IMP_DSP_AMMO_LIST = [																		// Artillery ammo list in format [Magazine name, danger distance from impact point in m, display name]
 	["8Rnd_82mm_Mo_shells", 80, "82 mm HE", 0],
 	["8Rnd_82mm_Mo_Flare_white", 0, "82 mm Flare", 0],
 	["8Rnd_82mm_Mo_Smoke_white", 0, "82 mm Smoke", 0],
@@ -56,7 +55,7 @@ NIC_IMP_DSP_AMMO_LIST = [															// Artillery ammo list in format [Magazi
 	["rhs_mag_m60a2_smoke_4", 0, "105 mm Smoke", 0]
 ];
 
-NIC_IMP_DSP_DIRECTIONS = [ 															// Escape directions in case of icomming shells near player; only friendly units [compass heading to impact point, opposite direction]
+NIC_IMP_DSP_DIRECTIONS = [ 																		// Escape directions in case of icomming shells near player; only friendly units [compass heading to impact point, opposite direction]
 	[337, "South"],
 	[293, "South West"],
 	[248, "West"],
@@ -67,17 +66,22 @@ NIC_IMP_DSP_DIRECTIONS = [ 															// Escape directions in case of icommi
 	[23, "South East"]
 ];
 
-NIC_IMP_DSP_ICON_ENABLED_VEHICLES = [												// Vehicles imact icons are visible from to player, when in gunner position	
+NIC_IMP_DSP_ICON_ENABLED_VEHICLES = [															// Vehicles imact icons are visible from to player, when in gunner position	
 	"B_UAV_05_F_Enhanced",
-	"NIC_UGV_01_Enhanced"
+	"NIC_UGV_01_Enhanced",
+	"B_UAV_01_F"
 ];
 
-NIC_IMP_DSP_wait = 0.1;																// Wait period for trajectory calculation
-if (isNil "NIC_IMP_DSP_MONITOR_CMD") then {NIC_IMP_DSP_MONITOR_CMD 		= true};	// Monitoring pf players opening command menu allowed
-// [] spawn NIC_IMP_DSP_fnc_MonitorCmdMenu;											// Spawn loop for monitoring players opening command menu
-if (isNil "NIC_IMP_DSP_MemoryMutex") then {NIC_IMP_DSP_MemoryMutex 		= false};
+NIC_IMP_DSP_wait = 0.1;																			// Wait period for trajectory calculation
+if (isNil "NIC_IMP_DSP_MONITOR_CMD") then {NIC_IMP_DSP_MONITOR_CMD 					= true};	// Monitoring of players opening command menu allowed
+if (isNil "NIC_IMP_DSP_MONITOR_PLAYER") then {NIC_IMP_DSP_MONITOR_PLAYER 			= true};	// Monitoring of players opening artillery computer allowed
+if (isNil "NIC_IMP_DSP_MonitorCmdMenuMutex") then {NIC_IMP_DSP_MonitorCmdMenuMutex 	= false};	// Mutex for command menu monitor loop
+if (isNil "NIC_IMP_DSP_MonitorPlayerMutex") then {NIC_IMP_DSP_MonitorPlayerMutex 	= false};	// Mutex for artillery computer monitor loop
+
+[] spawn NIC_IMP_DSP_fnc_MonitorCmdMenu;														// Spawn loop for monitoring players opening command menu
+[] spawn NIC_IMP_DSP_fnc_MonitorPlayer;															// Spawn loop for monitoring players artillery computer
 
 {
-	[_x, "fired", {_this spawn NIC_IMP_DSP_fnc_GetImpactData_dbg}, true] call CBA_fnc_addClassEventHandler;
-	// [_x, "fired", {_this spawn NIC_IMP_DSP_fnc_GetImpactData}, true] call CBA_fnc_addClassEventHandler;
+	// [_x, "fired", {_this spawn NIC_IMP_DSP_fnc_GetImpactData_dbg}, true] call CBA_fnc_addClassEventHandler;
+	[_x, "fired", {_this spawn NIC_IMP_DSP_fnc_GetImpactData}, true] call CBA_fnc_addClassEventHandler;
 } forEach NIC_IMP_DSP_MONITORED_VEHICLES;

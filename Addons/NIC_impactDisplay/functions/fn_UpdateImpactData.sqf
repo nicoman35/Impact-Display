@@ -18,6 +18,7 @@
 
 private ["_projectile", "_special", "_oldImpactPosition", "_oldImpactETA", "_memorizedImpactPosition", "_coordinates", "_newImpactPosition", "_heading", "_impactData", "_impactETA"];
 private _flightEndTime = 6;																	// seconds before round will impact; begin of eta recalculation
+private _distanceResolution = 0.5;															// how far the new impact position has to be from old impact position for new icon to be drawn
 while {count NIC_Arty_ImpactData > 0} do {
 	{
 		_projectile = _x #3;
@@ -56,10 +57,10 @@ while {count NIC_Arty_ImpactData > 0} do {
 			};
 		};
 		
-		if (_oldImpactPosition distance _newImpactPosition > 1) then {
+		if (_oldImpactPosition distance _newImpactPosition > _distanceResolution) then {
 			if (_special == 0) then {
 				_heading = _oldImpactPosition getDir _newImpactPosition;
-				_newImpactPosition = _oldImpactPosition getPos [1, _heading];
+				_newImpactPosition = _oldImpactPosition getPos [_distanceResolution, _heading];
 			};
 			_x set [0, _newImpactPosition];
 		};

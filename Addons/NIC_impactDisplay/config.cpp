@@ -21,6 +21,7 @@ class CfgFunctions {
 			class MonitorCmdMenu {};
 			class WarnPlayer {};
 			class UpdateImpactData {};
+			class MonitorPlayer {};
 		};
 	};
 };

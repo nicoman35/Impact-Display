@@ -21,5 +21,13 @@
             <Original>The monitoring of player's command menu is necessary for having exact predictions of guided and laser guided ammo. Optional. Downside: Constant looping will reduce overall game performance.</Original>
             <German>Das überwachen des Commando Menüs ist notwendig für exakte Vorhersagen für gelenkte und Laser gelenkte Munition. Optional. Nachteil: Die dafür notwendige constante Schleife wird sich negativ auf die Gesammtperformanz des Spieles auswirken.</German>
         </Key>
+		<Key ID="STR_NIC_IMP_DSP_AC">
+            <Original>Monitor Player AC</Original>
+            <German>Beobachtung Spieler AC</German>
+        </Key>
+		<Key ID="STR_NIC_IMP_DSP_AC_TIP">
+            <Original>Monitor player open artillery computer of an artillery unit. Necessary for display of rounds fired by player vehicle. Optional. Downside: Constant looping will reduce overall game performance.</Original>
+            <German>Überwache Spieler, die den Artillerie Computer öffnen. Notwendig für das darstellen von Projektilen durch den Spieler selbst. Optional. Nachteil: Die dafür notwendige constante Schleife wird sich negativ auf die Gesammtperformanz des Spieles auswirken.</German>
+        </Key>
 	</Package>
 </Project>

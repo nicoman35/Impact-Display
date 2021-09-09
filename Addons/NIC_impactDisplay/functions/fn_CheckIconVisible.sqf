@@ -16,7 +16,6 @@
 		bool
 */
 
-// NIC_IMP_DSP_fnc_CheckIconVisible = {
 params [["_player", objNull], ["_vehicle", objNull]];
 if (isNull _player || isNull _vehicle) exitWith {false};
 private _return = false;
@@ -26,4 +25,3 @@ if (count UAVControl _vehicle > 2) then {_indexGunner = 3};			// in case 2 playe
 	if (typeOf _vehicle == _x && UAVControl _vehicle # _indexGunner == "GUNNER") exitWith {_return = true}
 } forEach NIC_IMP_DSP_ICON_ENABLED_VEHICLES;
 _return
-// };
