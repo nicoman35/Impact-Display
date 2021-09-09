@@ -67,9 +67,9 @@ NIC_IMP_DSP_DIRECTIONS = [ 																		// Escape directions in case of ico
 ];
 
 NIC_IMP_DSP_ICON_ENABLED_VEHICLES = [															// Vehicles imact icons are visible from to player, when in gunner position	
-	"B_UAV_05_F_Enhanced",
-	"NIC_UGV_01_Enhanced",
-	"B_UAV_01_F"
+	"B_UAV_05_F_Enhanced",																		// UACV Sentinel Enhanced
+	"NIC_UGV_01_Enhanced",																		// UGV Stomper Enhanced
+	"B_UAV_01_F"																				// AR-2 Darter
 ];
 
 NIC_IMP_DSP_wait = 0.1;																			// Wait period for trajectory calculation
