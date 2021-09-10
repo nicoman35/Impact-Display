@@ -2,7 +2,7 @@
 	Author: 		Nicoman
 	Function: 		NIC_IMP_DSP_fnc_GetImpactData
 	Version: 		1.1
-	Edited Date: 	07.09.2021
+	Edited Date: 	10.09.2021
 	
 	Description:
 		In case one of the unit types listed in the variable NIC_IMP_DSP_MONITORED_VEHICLES fires
@@ -39,7 +39,7 @@ private _cursorObject = _cursorData #1;
 private _initialPositionObject = _cursorData #3;
 
 if (_pedictedImpactPosition distance _memorizedImpactPosition > 300) exitWith {
-	systemChat "Missfire! De-lock target and try again!";									 // if target object is 'locked', rounds will always fly around map position [0, 0], thus the round  is lost
+	systemChat "Missfire! Target locked? Try again!";										 // if target object is 'locked', rounds will always fly around map position [0, 0], thus the round  is lost
 }; 
 
 if (_special == 1) then {
