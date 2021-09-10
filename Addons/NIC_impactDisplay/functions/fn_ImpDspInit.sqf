@@ -82,6 +82,5 @@ if (isNil "NIC_IMP_DSP_MonitorPlayerMutex") then {NIC_IMP_DSP_MonitorPlayerMutex
 [] spawn NIC_IMP_DSP_fnc_MonitorPlayer;															// Spawn loop for monitoring players artillery computer
 
 {
-	// [_x, "fired", {_this spawn NIC_IMP_DSP_fnc_GetImpactData_dbg}, true] call CBA_fnc_addClassEventHandler;
 	[_x, "fired", {_this spawn NIC_IMP_DSP_fnc_GetImpactData}, true] call CBA_fnc_addClassEventHandler;
 } forEach NIC_IMP_DSP_MONITORED_VEHICLES;
