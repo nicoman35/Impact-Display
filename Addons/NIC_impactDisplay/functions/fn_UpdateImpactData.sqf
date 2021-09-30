@@ -2,7 +2,7 @@
 	Author: 		Nicoman
 	Function: 		NIC_IMP_DSP_fnc_ProjectileMonitor
 	Version: 		1.0
-	Edited Date: 	07.09.2021
+	Edited Date: 	30.09.2021
 	
 	Description:
 		Constantly update array NIC_Arty_ImpactData containing information for
@@ -16,27 +16,40 @@
 		None
 */
 
-private ["_projectile", "_special", "_oldImpactPosition", "_oldImpactETA", "_memorizedImpactPosition", "_coordinates", "_newImpactPosition", "_heading", "_impactData", "_impactETA"];
-private _flightEndTime = 6;																	// seconds before round will impact; begin of eta recalculation
-private _distanceResolution = 0.5;															// how far the new impact position has to be from old impact position for new icon to be drawn
+private [
+	"_projectile",
+	"_special", 
+	"_oldImpactPosition", 
+	"_oldImpactETA", 
+	"_impactData", 
+	"_newImpactETA",
+	"_newImpactPosition", 
+	"_memorizedImpactPosition", 
+	"_positionCrosshair",
+	"_heading",
+	"_flightEndTime"
+];
+private _distanceResolution = 0.3;															// how far the new impact position has to be from old impact position for new icon to be drawn
 while {count NIC_Arty_ImpactData > 0} do {
 	{
 		_projectile = _x #3;
 		if (isNull _projectile) exitWith {};
 		_special = _x #4;
-		if (_x #2 > _flightEndTime && _special == 0) exitWith {};
+		// if (_x #2 > _flightEndTime && _special == 0) exitWith {};
 		_oldImpactPosition = _x #0;
 		_oldImpactETA = _x #2;
-
-		if (_special == 0 || _x #2 <= _flightEndTime) then {
+		_flightEndTime = _x #8;
+		if (_special == 0 && _oldImpactETA > _flightEndTime) exitWith {};
+		
+		if (_oldImpactETA <= _flightEndTime) then {
 			_impactData = [_projectile, true] call NIC_IMP_DSP_fnc_CalcImpactData;
 			if (count _impactData == 0) exitWith {};
 			_newImpactETA = _impactData #1;
-			if (abs(_oldImpactETA - _newImpactETA) > 1) then {_x set [2, _newImpactETA]};	// let's recalculate ETA, for it can get imprecise over long distances
+			if (abs(_oldImpactETA - _newImpactETA) > 1) then {_x set [2, _newImpactETA]};	// let's update ETA, for initial ETA calculation WILL be imprecise over long distances
 			if (_special > 0) exitWith {};													// no impact position recalculation for precision ammo
 			_newImpactPosition = _impactData #0;
 		};
-
+		
 		if (_special == 1) then {
 			_memorizedImpactPosition = _x #5;
 			_newImpactPosition = _memorizedImpactPosition;
@@ -48,12 +61,12 @@ while {count NIC_Arty_ImpactData > 0} do {
 			};
 		};
 		
-		if (_special == 2) then {		// if round is laser guided, update impact position
+		if (_special == 2) then {															// if round is laser guided, update impact position
 			_memorizedImpactPosition = _x #5;
 			_newImpactPosition = _memorizedImpactPosition;
 			_positionCrosshair = screenToWorld [0.5, 0.5];
-			if (_positionCrosshair distance _memorizedImpactPosition < 100 && isLaserOn getConnectedUAV player) then {	 // if cursor position vehicle laser is on, laser guided round will hit initial memorized position
-				_newImpactPosition = _positionCrosshair;
+			if (_positionCrosshair distance _memorizedImpactPosition < 100 && isLaserOn getConnectedUAV player) then {
+				_newImpactPosition = _positionCrosshair;									// if crosshair position is less than 100 m away from initial memorized position, and vehicle laser is on, laser guided round will hit crosshair
 			};
 		};
 		

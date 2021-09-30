@@ -2,7 +2,7 @@
 	Author: 		Nicoman
 	Function: 		NIC_IMP_DSP_fnc_ImpDspInit
 	Version: 		1.0
-	Edited Date: 	9.09.2021
+	Edited Date: 	30.09.2021
 	
 	Description:
 		Iniciate impact display mod. Setup variables, add fired event handler to units listed in NIC_IMP_DSP_MONITORED_VEHICLES
@@ -73,7 +73,7 @@ NIC_IMP_DSP_ICON_ENABLED_VEHICLES = [															// Vehicles imact icons are 
 	"B_T_UAV_03_dynamicLoadout_F"																// MQ-12 Falcon
 ];
 
-NIC_IMP_DSP_wait = 0.1;																			// Wait period for trajectory calculation
+// NIC_IMP_DSP_wait = 0.1;																			// Wait period for trajectory calculation
 if (isNil "NIC_IMP_DSP_MONITOR_CMD") then {NIC_IMP_DSP_MONITOR_CMD 					= true};	// Monitoring of players opening command menu allowed
 if (isNil "NIC_IMP_DSP_MONITOR_PLAYER") then {NIC_IMP_DSP_MONITOR_PLAYER 			= true};	// Monitoring of players opening artillery computer allowed
 if (isNil "NIC_IMP_DSP_MonitorCmdMenuMutex") then {NIC_IMP_DSP_MonitorCmdMenuMutex 	= false};	// Mutex for command menu monitor loop

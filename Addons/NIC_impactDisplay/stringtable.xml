@@ -29,5 +29,9 @@
             <Original>Monitor player open artillery computer of an artillery unit. Necessary for display of rounds fired by player vehicle. Optional. Downside: Constant looping will reduce overall game performance.</Original>
             <German>Überwache Spieler, die den Artillerie Computer öffnen. Notwendig für das darstellen von Projektilen durch den Spieler selbst. Optional. Nachteil: Die dafür notwendige constante Schleife wird sich negativ auf die Gesammtperformanz des Spieles auswirken.</German>
         </Key>
+		<Key ID="STR_NIC_IMP_DSP_MISSFIRE">
+            <Original>Predicted impact position too far from expected impact position.</Original>
+            <German>Vorrausgesagte Einschlagsposition zu weit entfernt von der erwarteten Einschlagsposition.</German>
+        </Key>
 	</Package>
 </Project>

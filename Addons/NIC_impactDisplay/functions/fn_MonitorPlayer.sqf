@@ -30,8 +30,8 @@ while {NIC_IMP_DSP_MONITOR_PLAYER} do {
 	};
 	_eventHandler = (findDisplay -1 displayCtrl 500) ctrlAddEventHandler ["mouseButtonDown", "_worldCoords = (_this select 0) ctrlMapScreenToWorld [_this select 2, _this select 3]; 
 		_worldCoords pushBack 0;
-		cameraOn setVariable ['NIC_IMP_DSP_cursorData', [_worldCoords, objNull, objNull, []]];
-	"];
+		cameraOn setVariable ['NIC_IMP_DSP_cursorData', [_worldCoords, objNull, []]];"
+	];
 	waitUntil {isNull _displ};
 	(findDisplay -1 displayCtrl 500) ctrlRemoveEventHandler ["mouseButtonDown", _eventHandler];
 };

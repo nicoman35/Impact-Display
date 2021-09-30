@@ -2,7 +2,7 @@
 	Author: 		Nicoman
 	Function: 		NIC_IMP_DSP_fnc_GetImpactData
 	Version: 		1.1
-	Edited Date: 	10.09.2021
+	Edited Date: 	30.09.2021
 	
 	Description:
 		In case one of the unit types listed in the variable NIC_IMP_DSP_MONITORED_VEHICLES fires
@@ -36,10 +36,10 @@ private _cursorData = _unit getVariable ["NIC_IMP_DSP_cursorData", []];
 if (count _cursorData == 0) exitWith {};
 private _memorizedImpactPosition = _cursorData #0;
 private _cursorObject = _cursorData #1;
-private _initialPositionObject = _cursorData #3;
+private _initialPositionObject = _cursorData #2;
 
 if (_pedictedImpactPosition distance _memorizedImpactPosition > 300) exitWith {
-	systemChat "Missfire! Target locked? Try again!";										 // if target object is 'locked', rounds will always fly around map position [0, 0], thus the round  is lost
+	systemChat format[localize "STR_NIC_IMP_DSP_MISSFIRE"];									// if target object is 'locked', rounds will always fly around map position [0, 0], thus the round  is lost
 }; 
 
 if (_special == 1) then {
@@ -49,4 +49,6 @@ if (_special == 1) then {
 	};  
 };
 
-[_unit, _magazine, _impactETA max _impactETAcmd, _ammo, _pedictedImpactPosition, _projectile, _special, _memorizedImpactPosition, _cursorObject, _initialPositionObject] spawn NIC_IMP_DSP_fnc_ProjectileMonitor;
+private _flightEndTime = 5 + round ((_unit distance _pedictedImpactPosition) / 3000);		// begin of eta recalculation in seconds before round impact 																// seconds before round will impact; begin of eta recalculation
+// diag_log formatText ["%1%2%3%4", time, "s  (NIC_IMP_DSP_fnc_GetImpactData) _flightEndTime: ", _flightEndTime];
+[_unit, _magazine, _impactETA max _impactETAcmd, _ammo, _pedictedImpactPosition, _projectile, _special, _memorizedImpactPosition, _cursorObject, _initialPositionObject, _flightEndTime] spawn NIC_IMP_DSP_fnc_ProjectileMonitor;

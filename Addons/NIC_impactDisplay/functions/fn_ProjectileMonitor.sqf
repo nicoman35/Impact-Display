@@ -2,7 +2,7 @@
 	Author: 		Nicoman
 	Function: 		NIC_IMP_DSP_fnc_ProjectileMonitor
 	Version: 		1.1
-	Edited Date: 	07.09.2021
+	Edited Date: 	30.09.2021
 	
 	Description:
 		1. Monitor projectiles fired from artillery units, display impact positions as icons, if player
@@ -36,10 +36,11 @@ params [
 	["_special", 0], 
 	["_memorizedImpactPosition", []],
 	["_cursorObject", [objNull]], 
-	["_initialPositionObject", []]
+	["_initialPositionObject", []],
+	["_flightEndTime", 0]
 ];
 
-if (_impactETA == 0 || count _impactPosition == 0 || isNull _projectile) exitWith {};
+if (_impactETA == 0 || count _impactPosition == 0 || isNull _projectile || _flightEndTime == 0) exitWith {};
 
 private _ammoData = (NIC_IMP_DSP_AMMO_LIST select {_x #0 == _magazine}) #0;
 [_unit, _magazine, _impactETA , _ammoData, _impactPosition] spawn NIC_IMP_DSP_fnc_WarnPlayer;  // issue warning to all players near an impact position
@@ -47,9 +48,9 @@ private _ammoData = (NIC_IMP_DSP_AMMO_LIST select {_x #0 == _magazine}) #0;
 private _ammoName = _ammoType;
 if !(isNil{_ammoData}) then {_ammoName = _ammoData #2};
 if (isNil "NIC_Arty_ImpactData") then {NIC_Arty_ImpactData = []};																		// define impact data array
-NIC_Arty_ImpactData pushBack [_impactPosition, _ammoName, _impactETA, _projectile, _special, _memorizedImpactPosition, _cursorObject, _initialPositionObject];
+NIC_Arty_ImpactData pushBack [_impactPosition, _ammoName, _impactETA, _projectile, _special, _memorizedImpactPosition, _cursorObject, _initialPositionObject, _flightEndTime];
 if ((count NIC_Arty_ImpactData) > 1) exitWith {};																						// leave here, if we already monitor something
-
+ 
 private _eventHandlerId = addMissionEventHandler ["draw3D", {
 	_opacity = 0;
 	if ([player, getConnectedUAV player] call NIC_IMP_DSP_fnc_CheckIconVisible) then {_opacity = 1};
@@ -89,7 +90,8 @@ while {(count NIC_Arty_ImpactData) > 0} do {
 		_impactETA = _x #2;
 		_impactETA = _impactETA - 1;
 		_x set [2, _impactETA];
-		if (_impactETA < 1) then {NIC_Arty_ImpactData deleteAt _foreachindex};
+		_projectile = _x #3;
+		if (_impactETA < 1 || !alive _projectile) then {NIC_Arty_ImpactData deleteAt _foreachindex};
 	} forEach NIC_Arty_ImpactData;
 	sleep 1;
 };
