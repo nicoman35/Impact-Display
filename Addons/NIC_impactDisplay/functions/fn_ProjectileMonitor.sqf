@@ -91,7 +91,7 @@ while {(count NIC_Arty_ImpactData) > 0} do {
 		_impactETA = _impactETA - 1;
 		_x set [2, _impactETA];
 		_projectile = _x #3;
-		if (_impactETA < 1 || !alive _projectile) then {NIC_Arty_ImpactData deleteAt _foreachindex};
+		if (_impactETA < 0 || !alive _projectile) then {NIC_Arty_ImpactData deleteAt _foreachindex};
 	} forEach NIC_Arty_ImpactData;
 	sleep 1;
 };

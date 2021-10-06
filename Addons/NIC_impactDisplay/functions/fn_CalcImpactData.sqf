@@ -20,9 +20,7 @@ if (isNull _projectile) exitWith {[]};
 
 private _projectilePositionT0 = getPosWorld _projectile;								// position of projectile the moment is is fired
 private _Vzero = (speed _projectile) / 3.6;												// calculate speed of projectile from km/h to m/s the moment is is fired
-// private _Vzero = velocityModelSpace _projectile #1;
 
-// sleep NIC_IMP_DSP_wait;																	// wait short period for the round to move along it's trajectory
 sleep 0.1;																				// wait short period for the round to move along it's trajectory
 if (isNull _projectile || !alive _projectile) exitWith {[]};							// leave, if round no longer exists
 private _projectilePosition2 = getPosWorld _projectile;									// position of projectile after waiting period

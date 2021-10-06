@@ -35,7 +35,6 @@ while {count NIC_Arty_ImpactData > 0} do {
 		_projectile = _x #3;
 		if (isNull _projectile) exitWith {};
 		_special = _x #4;
-		// if (_x #2 > _flightEndTime && _special == 0) exitWith {};
 		_oldImpactPosition = _x #0;
 		_oldImpactETA = _x #2;
 		_flightEndTime = _x #8;
