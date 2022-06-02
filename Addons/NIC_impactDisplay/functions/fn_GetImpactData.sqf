@@ -24,13 +24,14 @@
 
 params ["_vehicle", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile"];
 private _ammoData = (NIC_IMP_DSP_AMMO_LIST select {_x #0 == _magazine}) #0;
-if (isNil{_ammoData}) exitWith {};  															// exit, if magazine projectile is fired from is not registered	in NIC_IMP_DSP_AMMO_LIST
+if (isNil{_ammoData}) exitWith {};
+if (isNull _ammoData) exitWith {};  															// exit, if magazine projectile is fired from is not registered	in NIC_IMP_DSP_AMMO_LIST
 private _impactData = [_projectile, true] call NIC_IMP_DSP_fnc_CalcImpactData;
 if (count _impactData == 0) exitWith {};
-private _pedictedImpactPosition = _impactData #0;												// calculated flight time of projectile
-private _impactETA = _impactData #1;
+private _pedictedImpactPosition = _impactData #0;
+private _impactETA = _impactData #1;															// calculated flight time of projectile
 private _impactETAcmd = floor (_vehicle getArtilleryETA [_pedictedImpactPosition, _magazine]);	// flight time of projectile given by command; sometimes not giving right flight time?!?
-_pedictedImpactPosition set [2, 0];
+// _pedictedImpactPosition set [2, 0];
 private _special = _ammoData #3;
 private _cursorData = _vehicle getVariable ["NIC_IMP_DSP_cursorData", []];
 if (count _cursorData == 0) exitWith {};
@@ -38,7 +39,7 @@ private _memorizedImpactPosition = _cursorData #0;
 private _cursorObject = _cursorData #1;
 private _initialPositionObject = _cursorData #2;
 
-// diag_log formatText ["%1%2%3%4%5%6%7%8", time, "s  (NIC_IMP_DSP_fnc_GetImpactData) _memorizedImpactPosition: ", _memorizedImpactPosition, ", _pedictedImpactPosition: ", _pedictedImpactPosition, ", dist: ", _pedictedImpactPosition distance _memorizedImpactPosition];
+diag_log formatText ["%1%2%3%4%5%6%7%8", time, "s  (NIC_IMP_DSP_fnc_GetImpactData) _memorizedImpactPosition: ", _memorizedImpactPosition, ", _pedictedImpactPosition: ", _pedictedImpactPosition, ", dist: ", _pedictedImpactPosition distance _memorizedImpactPosition];
 
 if (_pedictedImpactPosition distance _memorizedImpactPosition > 300) exitWith {
 	systemChat format[localize "STR_NIC_IMP_DSP_MISSFIRE"];										// if target object is 'locked', rounds will always fly around map position [0, 0], thus the round  is lost
